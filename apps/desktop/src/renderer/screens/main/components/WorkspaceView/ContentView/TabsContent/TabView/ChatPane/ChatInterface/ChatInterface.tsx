@@ -251,13 +251,13 @@ export function ChatInterface({
 	return (
 		<PromptInputProvider>
 			<div className="flex h-full flex-col bg-background">
-					<MessageList
-						messages={displayMessages}
-						isStreaming={chat.isLoading}
-						submitStatus={submitStatus}
-						workspaceId={workspaceId}
-						onAnswer={handleAnswer}
-					/>
+				<MessageList
+					messages={displayMessages}
+					isStreaming={chat.isLoading}
+					submitStatus={submitStatus}
+					workspaceId={workspaceId}
+					onAnswer={handleAnswer}
+				/>
 				<ChatInputFooter
 					cwd={cwd}
 					error={runtimeError ?? chat.error}
