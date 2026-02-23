@@ -229,6 +229,18 @@ export function ChatInterface({
 		[clearRuntimeError, stopActiveResponse],
 	);
 
+	const handleAnswer = useCallback(
+		async (toolCallId: string, answers: Record<string, string>) => {
+			clearRuntimeError();
+			await chat.addToolOutput({
+				tool: "ask_user_question",
+				toolCallId,
+				output: { answers },
+			});
+		},
+		[clearRuntimeError, chat.addToolOutput],
+	);
+
 	const handleSlashCommandSend = useCallback(
 		(command: SlashCommand) => {
 			handleSend({ text: `/${command.name}`, files: [] });
@@ -239,12 +251,13 @@ export function ChatInterface({
 	return (
 		<PromptInputProvider>
 			<div className="flex h-full flex-col bg-background">
-				<MessageList
-					messages={displayMessages}
-					isStreaming={chat.isLoading}
-					submitStatus={submitStatus}
-					workspaceId={workspaceId}
-				/>
+					<MessageList
+						messages={displayMessages}
+						isStreaming={chat.isLoading}
+						submitStatus={submitStatus}
+						workspaceId={workspaceId}
+						onAnswer={handleAnswer}
+					/>
 				<ChatInputFooter
 					cwd={cwd}
 					error={runtimeError ?? chat.error}

@@ -19,7 +19,10 @@ interface MessageListProps {
 	isStreaming: boolean;
 	submitStatus?: ChatStatus;
 	workspaceId?: string;
-	onAnswer?: (toolCallId: string, answers: Record<string, string>) => void;
+	onAnswer: (
+		toolCallId: string,
+		answers: Record<string, string>,
+	) => Promise<void>;
 }
 
 function FileChip({
